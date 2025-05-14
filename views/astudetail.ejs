@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: white;
+            padding: 80px 20px 60px;
+            margin: 0;
+            box-sizing: border-box;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+
+            position: relative;
+            top: 0;
+            left: 0;
+            bottom: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 0;
+            left: 0;
+            background-color: #293861;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header_button {
+            /* position: fixed; */
+            padding: 10px;
+            right: 30px;
+            border-radius: 20px;
+            border-style: solid;
+            color: black;
+            font-style: bold;
+
+        }
+
+        .img {
+            border-radius: 10px;
+        }
+
+        main {
+            flex: 1;
+            margin: 20px 0;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        /* table {} */
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        .flex-container {
+            display: flex;
+        }
+
+        .flex-item {
+            padding: 20px;
+        }
+
+        .sidebar {
+            top: 0;
+            width: 35%;
+            background-color: #ddd;
+            height: 1000px;
+        }
+
+        .main-content {
+            width: 75%;
+        }
+
+        h2 {
+            color: #446688;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+        }
+
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #446688;
+            color: #fff;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #293861;
+            color: white;
+            width: 100%;
+            padding: 10px 20px;
+            transition: top 0.3s;
+            /* Add smooth transition for header */
+        }
+
+        .hidden {
+            top: -50px;
+            /* Hide the header by moving it out of view */
+        }
+
+        main {
+            margin-top: 60px;
+            /* Adjust main content position to avoid overlapping with header */
+            padding: 20px;
+        }
+
+        /* For demonstration purposes */
+        main {
+            height: 2000px;
+            /* Add height to main content for scrolling */
+            background-color: #f2f2f2;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+
+        @media (max-width: 600px) {
+            .flex-container {
+                flex-direction: column;
+            }
+
+            .sidebar,
+            .main-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <h1>Student Detaills</h1>
+    </header>
+    <main>
+        <div class="flex-container">
+            <aside class="flex-item sidebar">
+                <section id="personal-details">
+                    <h2>Personal Details</h2>
+                    <p><b>NAME:</b> <span name="name" id="name">
+                            <%= name %>
+                        </span></p>
+                    <p><b>Gmail:</b> <span name="gmail" id="email">
+                            <%= gmail%>
+                        </span></p>
+                    <p><b>Admission Year:</b> <span name="ayear" id="ayear">
+                            <%= ayear %>
+                        </span></p>
+                    <p><b>Date of Birth:</b> <span name="dob" id="dob">
+                            <%= dob %>
+                        </span></p>
+                    <p><b>Gender:</b> <span name="gender" id="gender">
+                            <%= gender%>
+                        </span></p>
+                    <p><b>Category:</b> <span name="category" id="category">
+                            <%= category %>
+                        </span></p>
+                    <p><b>Religion:</b> <span name="religion" id="religion">
+                            <%= religion %>
+                        </span></p>
+                </section>
+            </aside>
+
+            <section class="flex-item main-content">
+                <section id="academic-details">
+                    <h2>Academic Details</h2>
+                    <p><b>Admitted Branch: </b><span name="branch" id="admitted-branch">
+                            <%= branch %>
+                        </span></p>
+                    <p><b>Current Semester:</b> <span name="semester" id="current-semester">
+                            <%= semester %>
+                        </span> </p>
+                    <p><b>Admission No: </b><span name="rollNo" id="admission-no">
+                            <%= rollNo %>
+                        </span></p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Semester</th>
+                                <th>Total Fee</th>
+                                <th>Balance Fee</th>
+                                <th>SGPA/PCM</th>
+                                <th>Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody id="academic-table-body">
+                            <!-- Display fee details for each semester -->
+                            <% feeDetails.forEach(fee=> { %>
+                                <tr>
+                                    <td>
+                                        <%= fee.semester %>
+                                    </td>
+                                    <td>₹<%= fee.totalfee %>
+                                    </td>
+                                    <td>₹<%= fee.balance %>
+                                    </td>
+                                    <td>
+                                        <%= fee.sgpa %>
+                                    </td>
+                                    <td>
+                                        <!-- <% if (fee.pay==='paid' ) { %> -->
+                                            <%= fee.pay %>
+                                                <!-- <% } else { %>
+                                                    <button class="pay-button" data-semester="<%= fee.semester %>"
+                                                        data-rollNo="<%= rollNo %>" data-status="<%= fee.status.toString() %>"
+                                                        data-read="<%=fee.read.toString() %>">Pay</button>
+                                                    <% } %> -->
+                                    </td>
+                                </tr>
+                                <% }) %>
+
+                        </tbody>
+                    </table>
+                </section>
+            </section>
+        </div>
+    </main>
+
+</body>
+
+</html>

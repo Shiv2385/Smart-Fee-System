@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Home</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .h {
+            width: 45%;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(11, 1, 1, 0.14);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #293861;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .box {
+            width: 45%;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(11, 1, 1, 0.14);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 170px;
+        }
+
+
+        .box input[type="text"],
+        .box input[type="number"],
+        .box p {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: rgba(246, 245, 245, 0.6);
+            border: 0.01px solid black;
+            box-sizing: border-box;
+            height: 35px;
+        }
+
+        #para {
+            font-weight: bold;
+            border: none;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box button {
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+            color: white;
+            width: 190px;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+            height: 40px;
+        }
+
+        .box button:hover {
+            background-color: #0056b3;
+        }
+
+
+
+        .verification-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 20px auto;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .verification-container .h {
+            flex: 1 1 calc(45% - 20px);
+            /* Responsive box size */
+            min-width: 300px;
+        }
+
+
+        @media screen and (max-width: 700px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .box {
+                width: 90vw;
+                height: 150px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <header id="header">
+        <h3>Admin</h3>
+    </header>
+    <div class="container">
+        <form action="/astd" method="POST" class="box">
+            <input type="text" id="admissionNumber" name="rollNo" placeholder="Enter Admission Number">
+            <button type="submit">Student Details</button>
+        </form>
+
+        <form action="/feesetup" method="GET" class="box">
+            <p id="para">Click here to set up fees</p>
+            <button type="submit">Set up Fees</button>
+        </form>
+    </div>
+
+
+    <!-- display data of all Studentfor Verification -->
+    <div class="verification-container">
+    <% feeDetails.forEach(fee => { %>
+        <% if (!fee.read) { %>
+            <div class="h">
+                <h2><u>Notification</u></h2>
+                <p>Name: <strong><%= fee.name %></strong></p>
+                <p>Roll No: <strong><%= fee.rollNo %></strong></p>
+                <p>Department: <strong><%= fee.branch %></strong></p>
+                <p>Semester: <strong><%= fee.semester %></strong></p>
+                <p><strong>SGPA/PCM:</strong> <strong><%= fee.sgpa %></strong></p>
+                <a href="<%= fee.textfield%>"
+                    download="filename.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer">Download File</a>
+
+                <input type="checkbox" id="readCheckbox_<%= fee.rollNo %>_<%= fee.semester %>" class="read-checkbox">
+                <label for="readCheckbox_<%= fee.rollNo %>_<%= fee.semester %>">Verified</label>
+                <button class="save-button" data-semester="<%= fee.semester %>" data-rollNo="<%= fee.rollNo %>">Save</button>
+            </div>
+        <% } %>
+    <% }) %>
+</div>
+
+
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const saveButtons = document.querySelectorAll('.save-button');
+                            saveButtons.forEach(button => {
+                                button.addEventListener('click', async () => {
+                                    const semester = button.getAttribute('data-semester');
+                                    const rollNo = button.getAttribute('data-rollNo');
+                                    const checkboxId = 'readCheckbox_' + rollNo + '_' + semester;
+
+                                    const status = document.getElementById(checkboxId).checked;
+                                    try {
+                                        const response = await fetch('/updateStatus', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ semester, rollNo, status })
+                                        });
+                                        if (response.ok) {
+                                            // Do something after successful update
+                                        } else {
+                                            console.error('Failed to update status');
+                                        }
+                                    } catch (error) {
+                                        console.error('Error updating status:', error);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+</body>
+
+</html>
+
+
+</body>
+
+</html>
