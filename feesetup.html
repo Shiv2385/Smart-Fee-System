@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Set-up</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #293861;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .wholebox {
+            margin-top: 48.8px;
+        }
+
+        .sidecontainer {
+            display: flex;
+            flex-wrap: wrap;
+            min-width: 350px;
+            padding: 30px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: rgba(246, 245, 245, 0.489);
+            color: black;
+        }
+
+        .fee-container {
+            width: 100vw;
+            max-width: 240px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px auto;
+            box-shadow: 0 4px 8px rgba(11, 1, 1, 0.14);
+        }
+
+        .fee {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .fee-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+
+        /* this is admin page css */
+        .container {
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            min-width: 350px;
+        }
+
+        .department-container {
+            width: 100vw;
+            max-width: 450px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 50px;
+            box-shadow: 0 4px 8px rgba(11, 1, 1, 0.14);
+        }
+
+        .department-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .department {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .department-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .sgpa-label {
+            width: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .sgpa-input {
+            width: 50%;
+            margin-left: 10px;
+            flex-grow: 1;
+        }
+
+        .fee-input {
+            width: 50%;
+            margin-left: 10px;
+            flex-grow: 1;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 150px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* @media screen and (min-width: 560px) {
+            .department-container {
+                width: calc(50% - 20px);
+            }
+        } */
+
+        @media screen and (min-width: 840px) {
+            .department-container {
+                width: calc(33.33% - 20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header id="header"><h3>Admin</h3></header>
+
+    <form action="/feesetup" method="POST">
+        <div class="wholebox">
+            <div class="sidecontainer">
+                <div class="fee-container">
+                    <div class="department-title"><u>Other Fee</u></div>
+                    <div class="fee">
+                        <div class="fee-row">
+                            <input type="number" id="specialfee" name="spfee" class="fee-input"
+                                placeholder="Special Fee" />
+                        </div>
+                        <div class="fee-row">
+                            <input type="number" id="admptafee" class="fee-input" name="adfee"
+                                placeholder="Administrative Charges:" />
+                        </div>
+                        <div class="fee-row">
+                            <input type="number" id="unifee" class="fee-input" name="unifee"
+                                placeholder="University Fee" />
+                        </div>
+                        <div class="fee-row">
+                            <input type="text" id="year" name="ayear" class="fee-input" placeholder="Academic Year" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="fee-container">
+                    <div class="department-title"><u>Tution Fee</u></div>
+                    <div class="fee">
+                        <div class="fee-row">
+                            <input type="number" name="ctf" id="civilfee" class="fee-input" placeholder="CIVIL FEE" />
+                        </div>
+                        <div class="fee-row">
+                            <input type="number" name="mtf" id="mechfee" class="fee-input" placeholder="MECHANIC FEE" />
+                        </div>
+                        <div class="fee-row">
+                            <input type="number" name="etf" id="eeefee" class="fee-input"
+                                placeholder="ELECTRICAL FEE" />
+                        </div>
+                        <div class="fee-row">
+                            <input type="number" name="cstf" id="csfee" class="fee-input" placeholder="COMPUTER FEE" />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="container">
+                <div class="department-container">
+                    <div class="department-title"><u>Civil Engineering</u></div>
+                    <div class="department">
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept1_sgpa1">keam rank:20000 OR pcm>85% OR SGPA:8.5</label>
+                            <input type="number" id="dept1_sgpa1" class="sgpa-input" name="c85" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept1_sgpa2">keam rank:15000 OR pcm>90% OR SGPA:9.0</label>
+                            <input type="number" id="dept1_sgpa2" class="sgpa-input" name="c90" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept1_sgpa3">keam rank:10000 OR pcm>95% OR SGPA:9.5</label>
+                            <input type="number" id="dept1_sgpa3" name="c95" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-container">
+                    <div class="department-title"><u>Mechanical Engineering</u></div>
+                    <div class="department">
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept2_sgpa1">keam rank:20000 OR pcm>85% OR SGPA:8.5</label>
+                            <input type="number" id="dept2_sgpa1" name="m85" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept2_sgpa2">keam rank:15000 OR pcm>90% OR SGPA:9.0</label>
+                            <input type="number" id="dept2_sgpa2" name="m90" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept2_sgpa3">keam rank:10000 OR pcm>95% OR SGPA:9.5</label>
+                            <input type="number" id="dept2_sgpa3" name="m95" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-container">
+                    <div class="department-title"><u>Electronic Engineering</u></div>
+                    <div class="department">
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept3_sgpa1">keam rank:30000 OR pcm>75% OR SGPA:7.5</label>
+                            <input type="number" id="dept3_sgpa1" name="e75" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept3_sgpa2">keam rank:15000 OR pcm>80% OR SGPA:8.0</label>
+                            <input type="number" id="dept3_sgpa2" name="e80" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept3_sgpa3">keam rank:10000 OR pcm>90% OR SGPA:9.0</label>
+                            <input type="number" id="dept3_sgpa3" name="e90" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-container">
+                    <div class="department-title"><u>Computer Science Engineering</u></div>
+                    <div class="department">
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept4_sgpa1">keam rank:15000 OR pcm>90% OR SGPA:9.0</label>
+                            <input type="number" id="dept4_sgpa1" name="cs90" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                        <div class="department-row">
+                            <label class="sgpa-label" for="dept4_sgpa2">keam rank:10000 OR pcm>95% OR SGPA:9.5</label>
+                            <input type="number" id="dept4_sgpa2" name="cs95" class="sgpa-input" placeholder="Fee" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <button class="submit-btn" type="submit">Submit Fees</button>
+
+    </form>
+
+
+</body>
+
+</html>
